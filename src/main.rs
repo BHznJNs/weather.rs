@@ -4,9 +4,9 @@ mod write_data;
 
 use crate::get_weather::index::get_weather;
 use crate::read_config::index::read_config;
+use crate::read_config::get_base::get_base;
 use crate::write_data::index::write_data;
 
-use std::env::current_dir;
 use std::error::Error;
 
 #[tokio::main]
@@ -33,12 +33,12 @@ async fn main() -> Result<(), Box<dyn Error>> {
         println!("Weather: {}", weather);
         println!("Temperature: {}", temperature);
 
-        let base = current_dir()?;
-        let weather_path = format!("{}/weather.txt", base.display());
-        let temperature_path = format!("{}/temperature.txt", base.display());
+        let weather_path = get_base("./weather.txt")?;
+        let temperature_path = get_base("./temperature.txt")?;
+        println!("{}  {}", weather_path, temperature_path);
 
-        write_data(String::from(weather_path), weather.to_string())?;
-        write_data(String::from(temperature_path), temperature.to_string())?;
+        write_data(weather_path, weather.to_string())?;
+        write_data(temperature_path, temperature.to_string())?;
     }
     Ok(())
 }

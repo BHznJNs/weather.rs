@@ -1,12 +1,11 @@
 use crate::read_config::check_conf::check_conf;
+use crate::read_config::get_base::get_base;
 
 use configparser::ini::Ini;
 use std::error::Error;
-use std::env::current_dir;
 
 pub fn read_config( key: &mut Option<String>, city: &mut Option<String>) -> Result<(), Box<dyn Error>> {
-    let path = current_dir()?;
-    let conf_path = format!("{}/config.ini", path.display());
+    let conf_path = get_base("./config.ini")?;
 
     check_conf(conf_path.as_str())?;
 
