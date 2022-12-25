@@ -35,7 +35,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
         let weather_path = get_base("./weather.txt")?;
         let temperature_path = get_base("./temperature.txt")?;
-        println!("{}  {}", weather_path, temperature_path);
 
         write_data(weather_path, weather.to_string())?;
         write_data(temperature_path, temperature.to_string())?;
